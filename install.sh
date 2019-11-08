@@ -41,12 +41,12 @@ if [ -d "$INSTALL_DIR" ]; then
     fi
 fi
 echo "[✔] Cleaning up old directories...";
-if [ -d "$ETC_DIR/Umer" ]; then
+if [ -d "$ETC_DIR/MrRobot-hub" ]; then
     echo "$DIR_FOUND_TEXT"
     if [ "$TERMUX" = true ]; then
-        rm -rf "$ETC_DIR/Umer"
+        rm -rf "$ETC_DIR/MrRobot-hub"
     else
-        sudo rm -rf "$ETC_DIR/Umer"
+        sudo rm -rf "$ETC_DIR/MrRobot-hub"
     fi
 fi
 
