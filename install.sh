@@ -1,4 +1,5 @@
 clear
+
 sudo chmod +x uninstall
 
 if [ "$PREFIX" = "/data/data/com.termux/files/usr" ]; then
