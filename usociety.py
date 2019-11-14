@@ -1,52 +1,80 @@
-import sys,os, configparser, datetime, platform
+import sys, time, random
+import os
+import configparser
+import subprocess
 
 
 class color:
+    HEADER = '\033[95m'
+    IMPORTANT = '\33[35m'
+    NOTICE = '\033[33m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
     RED = '\033[91m'
     END = '\033[0m'
-    OKBLUE = '\033[94m'
+    UNDERLINE = '\033[4m'
+    LOGGING = '\33[34m'
+color_random=[color.HEADER,color.IMPORTANT,color.NOTICE,color.OKBLUE,color.OKGREEN,color.WARNING,color.RED,color.END,color.UNDERLINE,color.LOGGING]
+random.shuffle(color_random)
+usocietylogo = color_random[0] + '''
+       ██╗   ██╗███████╗ ██████╗  ██████╗██╗███████╗████████╗██╗   ██╗
+       ██║   ██║██╔════╝██╔═══██╗██╔════╝██║██╔════╝╚══██╔══╝╚██╗ ██╔╝
+       ██║   ██║███████╗██║   ██║██║     ██║█████╗     ██║    ╚████╔╝ 
+       ██║   ██║╚════██║██║   ██║██║     ██║██╔══╝     ██║     ╚██╔╝  
+       ╚██████╔╝███████║╚██████╔╝╚██████╗██║███████╗   ██║      ██║   
+        ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝╚═╝╚══════╝   ╚═╝      ╚═╝   
+                                                            
 
+'''
+#Clearning Screen
+def clr_src():
+    os.system('clear')
 
+#Configuration
 installDir = os.path.dirname(os.path.abspath(__file__)) + '/'
-
 configFile = installDir + "/usociety.cfg"
-print(os.system('clear'))
+clr_src()
 print(installDir)
-
 config = configparser.RawConfigParser()
 config.read(configFile)
+
+
 class usociety:
 
     def completed(self):
-        input("Completed, click return to go back")
+        input("\nCompleted, press Enter to go back")
     
         self.__init__()
     
-
     def __init__(self):
-#        print(os.system("clear"))
-        print(color.RED + '''
+        clr_src()
+        print(usocietylogo + color.RED + '''
        !--------------- Coded By UmerFarid ---------------!
        !--------  GitHub.com/MrRobot-hub/usociety --------!
        !------------  usociety36711@gmail.com ------------!
   
        ''' + color.END + '''
-       1-Current Date & Time
-       2-System Info
-       0-EXIT\n
+
+       [1]-Scan Your Whole System
+       [2]-Check Rootkits
+       [0]-EXIT\n
      ''')
         usocietyPrompt = color.OKBLUE + "usociety:~#" + color.END
-
-        choice = input(usocietyPrompt)
+        prompt = os.system
         
+        choice = input(usocietyPrompt)
         if choice == "1":
-            print(datetime.datetime.now())
+            prompt("echo " + color.RED + "[◉]" + color.END + " System scanning.. \n")
+            time.sleep(2.5)
+            os.system("lynis audit system")
         elif choice == "2":
-            print("Machine: " + platform.machine())
-            print("Architecture: " + platform.architecture()[0])
-            print("Node: " + platform.node())
-            print("System: " + platform.system())
-
+            prompt("echo " + color.RED + "[◉]" + color.END + " Checking for Updates.. \n")
+            time.sleep(1)
+            os.system("apt install rkhunter;clear")
+            prompt("echo " + color.RED + "[◉]" + color.END + " Checking Rootkits.. \n")
+            time.sleep(2.5)
+            os.system("rkhunter --check")
 
         elif choice == "0":
             with open(configFile, 'wb') as configfile:
